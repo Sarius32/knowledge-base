@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 
@@ -29,6 +30,7 @@ import { AppComponent } from './app.component';
     MatButtonModule,
     MatChipsModule,
     FlexLayoutModule,
+    LazyLoadImageModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

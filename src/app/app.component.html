@@ -1,17 +1,16 @@
 <mat-toolbar color="primary"> </mat-toolbar>
-<img [src]="img" />
 
 <div style="margin: 2rem" fxLayout="row wrap">
   <mat-card *ngFor="let site of websites" style="width: 25rem; margin: 1rem">
     <mat-card-header>
-      <mat-card-title *ngIf="site.name || site.url" fxLayout="row" style="align-items: center">
-        <h1 style="margin: 0 1rem 0 0">{{ site.name ? site.name : site.url }}</h1>
+      <mat-card-title fxLayout="row" style="align-items: center">
+        <h1 style="margin: 0 1rem 0 0">{{ site.name }}</h1>
         <a
-          *ngIf="site.url"
           mat-icon-button
-          color="primary"
+          *ngIf="site.url"
           [href]="site.url"
           target="_blank"
+          color="primary"
           style="width: 24px; height: 24px"
         >
           <mat-icon fxLayoutAlign="center">open_in_new</mat-icon>
@@ -23,6 +22,7 @@
         </mat-chip-list>
       </mat-card-subtitle>
     </mat-card-header>
+    <img mat-card-image *ngIf="site.source" [lazyLoad]="site.source" />
     <mat-card-content *ngIf="site.description">
       <p>{{ site.description }}</p>
     </mat-card-content>

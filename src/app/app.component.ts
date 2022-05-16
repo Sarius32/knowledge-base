@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { collectionData, Firestore } from '@angular/fire/firestore';
-import { getBlob, ref, Storage } from '@angular/fire/storage';
+import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
 import { signInAnonymously } from '@firebase/auth';
 import { collection } from '@firebase/firestore';
 import { Observable, Subscription } from 'rxjs';
@@ -13,8 +13,6 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
   unSubs: Subscription[] = [];
-
-  img?: Blob;
 
   all: Item[] = [];
   websites: Item[] = [];
@@ -29,18 +27,12 @@ export class AppComponent implements OnInit, OnDestroy {
           this.all = [...data];
           this.all.sort((a, b) => a.name.localeCompare(b.name));
           this.all.forEach((site) => {
-            try {
-              site.keywords = site.keywords.sort((a, b) => a.localeCompare(b));
-            } catch (e) {
-              console.log(e);
-            }
+            if (site.keywords) site.keywords = site.keywords.sort((a, b) => a.localeCompare(b));
+            if (site.image) getDownloadURL(ref(this.storage, site.image)).then((url) => (site.source = url));
           });
-          this.websites = [...this.all];
+          this.websites = this.all;
         })
       );
-      getBlob(ref(this.storage, 'cloudcraft.png')).then((blob) => {
-        this.img = blob;
-      });
     });
   }
 
@@ -51,7 +43,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
 interface Item {
   name: string;
-  description: string;
-  url: string;
-  keywords: string[];
+  description?: string;
+  url?: string;
+  keywords?: string[];
+  image?: string;
+  source?: string;
 }
