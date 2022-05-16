@@ -1,4 +1,29 @@
-<mat-toolbar color="primary">
-  <mat-icon>local_fire_department</mat-icon>
-  <span>Kanban Fire</span>
-</mat-toolbar>
+<mat-toolbar color="primary"> </mat-toolbar>
+
+<div style="margin: 2rem" fxLayout="row wrap">
+  <mat-card *ngFor="let site of websites" style="width: 25rem; margin: 1rem">
+    <mat-card-header>
+      <mat-card-title *ngIf="site.name || site.url" fxLayout="row" style="align-items: center">
+        <h1 style="margin: 0 1rem 0 0">{{ site.name ? site.name : site.url }}</h1>
+        <a
+          *ngIf="site.url"
+          mat-icon-button
+          color="primary"
+          [href]="site.url"
+          target="_blank"
+          style="width: 24px; height: 24px"
+        >
+          <mat-icon fxLayoutAlign="center">open_in_new</mat-icon>
+        </a>
+      </mat-card-title>
+      <mat-card-subtitle *ngIf="site.keywords">
+        <mat-chip-list>
+          <mat-chip *ngFor="let keyword of site.keywords" color="accent" selected>{{ keyword }}</mat-chip>
+        </mat-chip-list>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content *ngIf="site.description">
+      <p>{{ site.description }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
