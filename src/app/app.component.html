@@ -1,7 +1,7 @@
 <mat-toolbar color="primary"> </mat-toolbar>
 
-<div style="margin: 2rem" fxLayout="row wrap">
-  <mat-card *ngFor="let site of websites" style="width: 25rem; margin: 1rem">
+<div style="margin: 2rem" fxLayout="row wrap" fxLayoutAlign="center">
+  <mat-card *ngFor="let site of websites" style="min-width: 20rem; max-width: 25%; margin: 1rem">
     <mat-card-header>
       <mat-card-title fxLayout="row" style="align-items: center">
         <h1 style="margin: 0 1rem 0 0">{{ site.name }}</h1>
